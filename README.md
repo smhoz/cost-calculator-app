@@ -1,16 +1,23 @@
-# coin_avarage_cost
+# Coin/Token Cost Calculator App
 
-A new Flutter project.
 
-## Getting Started
+- You can calculate cost of your coins or tokens.
 
-This project is a starting point for a Flutter application.
+- You can save and edit later if you want.
 
-A few resources to get you started if this is your first Flutter project:
+New features will be added very soon
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+In this application, used animated list and lottie animation for dark mode.
+You can watch the video below for details.
+
+
+
+
+![cost_calculator_app_mockup](https://user-images.githubusercontent.com/78686891/164681000-f0d803cc-91ff-4b14-9d34-571e84e04fc6.png)
+
+
+
+
+https://user-images.githubusercontent.com/78686891/164684590-a53a2ff0-bf8a-488a-8807-fdba80a9cb68.mp4
+
