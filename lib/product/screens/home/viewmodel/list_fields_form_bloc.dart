@@ -1,28 +1,30 @@
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
-import '../../../../constants/components/app_components_constants.dart';
-import '../../../../constants/model/model_constants.dart';
-import '../../../../mixins/list_field_form_bloc_mixin.dart';
-import '../../model/coin_model.dart';
+import '../../../constants/components/app_components_constants.dart';
+import '../../../constants/model_constants.dart';
+import '../../../mixins/list_field_form_bloc_mixin.dart';
+import '../model/coin_model.dart';
 
 class ListFieldFormBloc extends FormBloc<String, String> with ListFieldFormBlocMixin {
   ListFieldFormBloc() {
-    addFieldBlocs(fieldBlocs: [nameField, costField, members]);
+    addFieldBlocs(fieldBlocs: [clubName, coinCost, members]);
+
     addMember();
   }
 
   @override
   CoinCostModel onSubmitting() {
     CoinCostModel coinCostModel = CoinCostModel.fromJson(state.toJson());
-    submit();
+
+    emitSuccess(canSubmitAgain: true);
     return calculateCost(coinCostModel: coinCostModel);
   }
 }
 
 class ListFieldFormBlocEdit extends FormBloc<String, String> with ListFieldFormBlocMixin {
   ListFieldFormBlocEdit({required CoinCostModel coinCostModel}) {
-    nameField.updateInitialValue(coinCostModel.coinName ?? "");
-    costField.updateInitialValue(coinCostModel.coinCost ?? "");
+    clubName.updateInitialValue(coinCostModel.coinName ?? "");
+    coinCost.updateInitialValue(coinCostModel.coinCost ?? "");
     ModelConstants _modelConstants = ModelConstants.instance;
 
     members = ListFieldBloc<CoinFieldBloc, dynamic>(
@@ -40,7 +42,7 @@ class ListFieldFormBlocEdit extends FormBloc<String, String> with ListFieldFormB
       ),
     );
 
-    addFieldBlocs(fieldBlocs: [nameField, costField, members]);
+    addFieldBlocs(fieldBlocs: [clubName, coinCost, members]);
   }
 
   @override
@@ -48,7 +50,6 @@ class ListFieldFormBlocEdit extends FormBloc<String, String> with ListFieldFormB
     CoinCostModel coinCost = CoinCostModel.fromJson(state.toJson());
 
     emitSuccess(canSubmitAgain: true);
-    print("IS VALID ${state.isValid()}");
     return calculateCost(coinCostModel: coinCost);
   }
 }

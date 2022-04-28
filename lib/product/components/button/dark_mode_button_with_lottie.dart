@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/notifier/theme_notifier.dart';
 import '../../../core/constants/app_duration_constants.dart';
-import '../../constants/assets/assets_constants.dart';
-import '../../manager/theme_cache_manager.dart';
+import '../../constants/assets_constants.dart';
+import '../../manager/change_theme_cache_manager.dart';
 
 class DarkModeButtonWithLottie extends StatefulWidget {
   const DarkModeButtonWithLottie({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _DarkModeButtonWithLottieState extends State<DarkModeButtonWithLottie> wit
   void initState() {
     super.initState();
     animationController = AnimationController(vsync: this, duration: AppDuration.normalDuration());
-    !ThemeCacheManager.instance.getIsTrue(ThemeKey.theme.name) ? animationController?.reverse() : animationController?.forward();
+    !ChangeThemeCacheManager.instance.getIsTrue(ThemeKey.theme.name) ? animationController?.reverse() : animationController?.forward();
   }
 
   @override
@@ -29,7 +29,7 @@ class _DarkModeButtonWithLottieState extends State<DarkModeButtonWithLottie> wit
       builder: (context, viewModel, child) {
         return InkWell(
           onTap: () {
-            bool isDark = ThemeCacheManager.instance.getIsTrue(ThemeKey.theme.name);
+            bool isDark = ChangeThemeCacheManager.instance.getIsTrue(ThemeKey.theme.name);
 
             _changeTheme(viewModel, isDark);
 
@@ -48,6 +48,6 @@ class _DarkModeButtonWithLottieState extends State<DarkModeButtonWithLottie> wit
   }
 
   void _savedLocalStorage(bool isDark) {
-    ThemeCacheManager.instance.putItem(ThemeKey.theme.name, !isDark);
+    ChangeThemeCacheManager.instance.putItem(ThemeKey.theme.name, !isDark);
   }
 }

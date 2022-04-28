@@ -1,15 +1,13 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../constants/local_storage/hive_constants.dart';
+import '../constants/hive_constants.dart';
 import '../screens/home/model/coin_model.dart';
-import 'abstract/i_cache_manager.dart';
+import 'i_cache_manager.dart';
 
-enum CoinCostManagerKey { coincostdb, coincostkey }
+enum CoinCostManagerKey { coinCostDb }
 
 class CoinCostCacheManager extends ICacheManager<CoinCostModel> {
-  static CoinCostCacheManager? _instance;
-  CoinCostCacheManager._() : super(CoinCostManagerKey.coincostdb.name);
-  static CoinCostCacheManager get instance => _instance ??= CoinCostCacheManager._();
+  CoinCostCacheManager({String? key}) : super(key);
   @override
   Future<void> init() async {
     registerAdapter();

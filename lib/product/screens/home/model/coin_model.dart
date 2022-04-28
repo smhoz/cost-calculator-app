@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hive/hive.dart';
 
-import '../../../constants/local_storage/hive_constants.dart';
-import '../../../constants/model/model_constants.dart';
+import '../../../constants/hive_constants.dart';
+import '../../../constants/model_constants.dart';
 
 part 'coin_model.g.dart';
 
