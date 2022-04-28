@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../screens/home/viewmodel/home_view_model.dart';
-import '../../screens/home/viewmodel/list_fields_form_bloc.dart';
+import '../../screens/home/viewmodel/cubit/list_fields_form_bloc.dart';
+import '../../screens/home/viewmodel/global_list_view_model.dart';
 
 
 class FloatingActionButtonAddWiget extends StatelessWidget {
@@ -17,7 +17,7 @@ class FloatingActionButtonAddWiget extends StatelessWidget {
           child: const Icon(Icons.add),
           onPressed: () {
             final formBloc = context.read<ListFieldFormBloc>();
-            final homeViewModel = context.read<HomeViewModel>();
+            final homeViewModel = context.read<GlobalListViewModel>();
             formBloc.addMember();
             homeViewModel.addAnimatedList();
           },

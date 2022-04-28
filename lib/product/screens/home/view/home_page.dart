@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/extensions/context_extension.dart';
 import '../../../components/button/bottom_bar_icon_button.dart';
 import '../../../components/button/floationg_action_button_with_add_widget.dart';
-import '../../../constants/assets_constants.dart';
+import '../../../constants/assets/assets_constants.dart';
 import '../../bookmarks/view/bookmarks_view.dart';
 import '../viewmodel/tab_view_model.dart';
 import 'home_view.dart';

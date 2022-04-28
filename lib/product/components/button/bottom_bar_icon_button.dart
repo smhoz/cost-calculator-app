@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/extensions/context_extension.dart';
-import '../../constants/assets_constants.dart';
+import '../../constants/assets/assets_constants.dart';
 import '../../screens/home/viewmodel/tab_view_model.dart';
 
 class BottomBarIconButton extends StatelessWidget {

@@ -8,9 +8,11 @@ import '../../../components/card/bookmarks_card.dart';
 import '../../../components/fields/coin_cost_and_name_fields.dart';
 import '../../../components/fields/dynamic_form_fields.dart';
 import '../../../constants/components/app_components_constants.dart';
+import '../../../manager/coin_cost_cache_manager.dart';
 import '../../home/model/coin_model.dart';
-import '../../home/viewmodel/home_view_model.dart';
-import '../../home/viewmodel/list_fields_form_bloc.dart';
+import '../../home/viewmodel/cubit/list_fields_form_bloc.dart';
+import '../../home/viewmodel/global_list_view_model.dart';
+import '../viewmodel/cost_save_view_model.dart';
 
 class BookMarksView extends StatefulWidget {
   const BookMarksView({Key? key}) : super(key: key);
@@ -42,21 +44,18 @@ class _BookMarksViewState extends State<BookMarksView> {
   }
 
   Widget _consumerGridView(BuildContext context) {
-    return Consumer<HomeViewModel>(
-      builder: (context, viewModel, child) {
-        return GridView.builder(
-          shrinkWrap: true,
-          padding: context.paddingLow,
-          physics: AppComponentConstants.instance.scrollPhysics,
-          itemCount: viewModel.savedCoinCosts?.length,
-          itemBuilder: (context, index) {
-            bool isOdd = index % 2 != 0;
-            CoinCostModel? coinCostModel = context.read<HomeViewModel>().savedCoinCosts![index];
-            return _bookMarkCard(isOdd, context, coinCostModel);
-          },
-          gridDelegate: _sliverGridDelegate(context),
-        );
+    final savedList = context.watch<CostSaveViewModel>().getItems(CoinCostCacheManager.instance);
+    return GridView.builder(
+      shrinkWrap: true,
+      padding: context.paddingLow,
+      physics: AppComponentConstants.instance.scrollPhysics,
+      itemCount: savedList.length,
+      itemBuilder: (context, index) {
+        bool isOdd = index % 2 != 0;
+        CoinCostModel coinCostModel = savedList[index];
+        return _bookMarkCard(isOdd, context, coinCostModel);
       },
+      gridDelegate: _sliverGridDelegate(context),
     );
   }
 
@@ -64,7 +63,8 @@ class _BookMarksViewState extends State<BookMarksView> {
     return BookMarkCard(
       isOdd: isOdd,
       coinCostModel: coinCostModel,
-      onDissmissed: () async => coinCostModel.id != null ? await context.read<HomeViewModel>().removeItem(coinCostModel.id!) : null,
+      onDissmissed: () async =>
+          coinCostModel.id != null ? await context.read<CostSaveViewModel>().removeItem(CoinCostCacheManager.instance, coinCostModel.id!) : null,
       editButtonOnPressed: () => context.navigateToPage(BookMarksEdit(coinCostModel: coinCostModel)),
     );
   }
@@ -138,7 +138,7 @@ class _BookMarksEditViewState extends State<BookMarksEditView> {
       child: const Icon(Icons.add),
       onPressed: () {
         formBloc.addMember();
-        context.read<HomeViewModel>().addAnimatedList();
+        context.read<GlobalListViewModel>().addAnimatedList();
       },
     );
   }
@@ -153,14 +153,17 @@ class _BookMarksEditViewState extends State<BookMarksEditView> {
   }
 
   Widget _coinCostAndNameField(BuildContext context) {
-    return CoinCostAndNameField(coinNameFieldBloc: formBloc.clubName, coinCostFieldBloc: formBloc.coinCost);
+    return CoinCostAndNameField(coinNameFieldBloc: formBloc.nameField, coinCostFieldBloc: formBloc.costField);
   }
 
   TextElevatedSaveButton _savedButton(BuildContext context) {
     return TextElevatedSaveButton(
+      isShowDialog: false,
       onPressed: (value) {
         CoinCostModel? _model = formBloc.onSubmitting();
-        widget.coinCostModel?.id != null ? context.read<HomeViewModel>().putItem(widget.coinCostModel!.id!, _model) : null;
+        widget.coinCostModel?.id != null
+            ? context.read<CostSaveViewModel>().putItem(CoinCostCacheManager.instance, widget.coinCostModel!.id!, _model)
+            : null;
       },
     );
   }

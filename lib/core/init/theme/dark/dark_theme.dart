@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../product/constants/app_constants.dart';
+import '../../../../product/constants/app/app_constants.dart';
 import '../app_theme.dart';
 
 class AppThemeDark {
