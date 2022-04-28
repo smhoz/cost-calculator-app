@@ -90,8 +90,8 @@ class CustomDialog extends StatelessWidget {
     return Transform.scale(
       scale: 0.7,
       child: CupertinoSwitch(
-        value: rememberChoiceCacheManager.get(RememberChoiceCacheKey.rememberChoice.name),
-        onChanged: (value) => rememberChoiceCacheManager.putItem(RememberChoiceCacheKey.rememberChoice.name, value),
+        value: rememberChoiceCacheManager.get(RememberChoiceCacheKey.rememberchoicekey.name),
+        onChanged: (value) => rememberChoiceCacheManager.putItem(RememberChoiceCacheKey.rememberchoicekey.name, value),
       ),
     );
   }

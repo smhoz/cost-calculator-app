@@ -3,7 +3,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 import '../../constants/components/app_components_constants.dart';
 import '../../screens/home/model/coin_model.dart';
-import '../../screens/home/viewmodel/home_view_model.dart';
+import '../../screens/home/viewmodel/global_list_view_model.dart';
 import 'coin_fields.dart';
 
 class DynamicFormFields extends StatelessWidget {
@@ -19,7 +19,7 @@ class DynamicFormFields extends StatelessWidget {
       builder: (context, state) {
         if (state.fieldBlocs.isNotEmpty) {
           return AnimatedList(
-            key: context.read<HomeViewModel>().listKey,
+            key: context.read<GlobalListViewModel>().listKey,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             initialItemCount: state.fieldBlocs.length,
@@ -41,7 +41,7 @@ class DynamicFormFields extends StatelessWidget {
       memberField: state.fieldBlocs[index],
       onRemoveMember: () {
         onRemoved != null ? onRemoved!(index) : null;
-        context.read<HomeViewModel>().listKey.currentState?.removeItem(index, (context, animation) => const SizedBox.shrink());
+        context.read<GlobalListViewModel>().listKey.currentState?.removeItem(index, (context, animation) => const SizedBox.shrink());
       },
     );
   }

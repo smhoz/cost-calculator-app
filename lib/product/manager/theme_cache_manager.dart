@@ -1,14 +1,14 @@
-import 'i_cache_manager.dart';
+import 'abstract/i_cache_manager.dart';
 
-enum ThemeKey { themeDb, theme }
+enum ThemeKey { themedb, theme }
 
-class ChangeThemeCacheManager extends ICacheManager<bool> {
-  static ChangeThemeCacheManager? _instance;
-  ChangeThemeCacheManager._() : super(ThemeKey.themeDb.name);
-  static ChangeThemeCacheManager get instance => _instance ??= ChangeThemeCacheManager._();
+class ThemeCacheManager extends ICacheManager<bool> {
+  static ThemeCacheManager? _instance;
+  ThemeCacheManager._() : super(ThemeKey.themedb.name);
+  static ThemeCacheManager get instance => _instance ??= ThemeCacheManager._();
 
   @override
-  Future<void> init() async {
+  Future<void> init({String? key}) async {
     await super.init();
   }
 

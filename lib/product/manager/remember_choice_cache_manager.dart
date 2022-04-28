@@ -1,11 +1,11 @@
-import 'i_cache_manager.dart';
+import 'abstract/i_cache_manager.dart';
 
-enum RememberChoiceCacheKey { rememberChoiceDB, rememberChoice }
+enum RememberChoiceCacheKey { rememberchoicedb, rememberchoicekey }
 
 class RememberChoiceCacheManager extends ICacheManager<bool> {
   static RememberChoiceCacheManager? _instance;
-  RememberChoiceCacheManager._() : super(RememberChoiceCacheKey.rememberChoiceDB.name);
-  static RememberChoiceCacheManager get instance => _instance ?? RememberChoiceCacheManager._();
+  RememberChoiceCacheManager._() : super(RememberChoiceCacheKey.rememberchoicedb.name);
+  static RememberChoiceCacheManager get instance => _instance ??= RememberChoiceCacheManager._();
 
   @override
   Future<void> deleteItem(String key) async {
@@ -19,7 +19,8 @@ class RememberChoiceCacheManager extends ICacheManager<bool> {
 
   @override
   bool get(String key) {
-    return box?.get(key, defaultValue: false) ?? false;
+    final value = box?.get(key, defaultValue: false);
+    return value ?? false;
   }
 
   @override

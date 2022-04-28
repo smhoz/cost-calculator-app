@@ -6,8 +6,9 @@ import '../dialog/custom_dialog.dart';
 
 class TextElevatedSaveButton extends StatefulWidget {
   final Function(bool alertDialogOnPressed) onPressed;
+  final bool isShowDialog;
   final String? text;
-  const TextElevatedSaveButton({Key? key, required this.onPressed, this.text}) : super(key: key);
+  const TextElevatedSaveButton({Key? key, required this.onPressed, this.text,this.isShowDialog = true}) : super(key: key);
 
   @override
   State<TextElevatedSaveButton> createState() => _TextElevatedSaveButtonState();
@@ -32,11 +33,11 @@ class _TextElevatedSaveButtonState extends State<TextElevatedSaveButton> {
   }
 
   void _onPressed() {
-    bool rememberChoice = RememberChoiceCacheManager.instance.get(RememberChoiceCacheKey.rememberChoice.name);
+    bool rememberChoice = RememberChoiceCacheManager.instance.get(RememberChoiceCacheKey.rememberchoicekey.name);
 
     widget.onPressed(rememberChoice);
 
-    if (!rememberChoice) {
+    if (!rememberChoice && widget.isShowDialog) {
       animatedDialog(context, RememberChoiceCacheManager.instance);
     }
   }

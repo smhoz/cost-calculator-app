@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 
 import 'core/notifier/theme_notifier.dart';
-import 'product/constants/app_constants.dart';
-import 'product/init/notifier/provider_lists.dart';
-import 'product/manager/change_theme_cache_manager.dart';
+import 'product/constants/app/app_constants.dart';
+import 'product/init/product_init.dart';
 import 'product/screens/home/view/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _init();
+  await ProductInit.instance.mainInit();
 
   runApp(MultiProvider(
-    providers: ProviderLists.instance.providerLists(),
+    providers: ProductInit.instance.providerLists,
     child: const MyApp(),
   ));
-}
-
-Future<void> _init() async {
-  await Hive.initFlutter();
-  await ChangeThemeCacheManager.instance.init();
 }
 
 class MyApp extends StatelessWidget {
