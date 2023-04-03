@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: AppConstant.appTitle,
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
-      theme: Provider.of<ThemeNotifier>(context).getTheme,
+      theme: context<ThemeNotifier>.watch().getTheme,
     );
   }
 }
